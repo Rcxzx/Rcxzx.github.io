@@ -4,11 +4,11 @@ client = new Paho.MQTT.Client("broker.hivemq.com", 8000, "web_client_" + Math.ra
 client.onMessageArrived = function (message) {
     console.log("Message Arrived: " + message.payloadString);
     document.getElementById("data").innerHTML = message.payloadString + " °C";
-    };
+};
 
-    client.connect({
-        onSuccess: function () {
-            console.log("Connected!");
-            client.subscribe("Suvimol77"); // ต้องตรงกับที่ ESP8266 ส่งมา
-        }
-    });
+client.connect({
+    onSuccess: function () {
+        console.log("Connected!");
+        client.subscribe("Suvimol77"); // ต้องตรงกับที่ ESP8266 ส่งมา
+    }
+});
