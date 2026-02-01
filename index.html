@@ -19,7 +19,7 @@
 
     <script>
         // ตั้งค่าการเชื่อมต่อ (ใช้ Websocket Port 8000 สำหรับหน้าเว็บ)
-        client = new Paho.MQTT.Client("broker.hivemq.com", Number(8001), "web_client_" + Math.random());
+        client = new Paho.MQTT.Client("broker.hivemq.com", Number(8884), "web_client_" + Math.random());
 
         client.onMessageArrived = function (message) {
             console.log("Message Arrived: " + message.payloadString);
@@ -39,3 +39,4 @@
 </body>
 
 </html>
+
