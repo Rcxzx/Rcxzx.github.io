@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ESP8266 Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
+    <style>
+        body { font-family: sans-serif; text-align: center; background: #f4f4f4; }
+        .card { background: white; padding: 20px; border-radius: 15px; display: inline-block; margin-top: 50px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        #data { font-size: 3em; color: #007bff; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>ESP8266 Sensor Data</h2>
+        <div id="data">รอข้อมูล...</div>
+        <p>Topic: Suvimol77</p>
+    </div>
+
+    <script>
+        // ตั้งค่าการเชื่อมต่อ (ใช้ Websocket Port 8000 สำหรับหน้าเว็บ)
+        client = new Paho.MQTT.Client("broker.hivemq.com", 8000, "web_client_" + Math.random());
+
+        client.onMessageArrived = function (message) {
+            console.log("Message Arrived: " + message.payloadString);
+            document.getElementById("data").innerHTML = message.payloadString + " °C";
+        };
+
+        client.connect({
+            onSuccess: function () {
+                console.log("Connected!");
+                client.subscribe("Suvimol77"); // ต้องตรงกับที่ ESP8266 ส่งมา
+            }
+        });
+    </script>
+</body>
+</html>
